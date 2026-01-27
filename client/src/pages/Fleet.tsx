@@ -19,6 +19,7 @@ import {
   ArrowLeft
 } from "lucide-react";
 import { Link } from "wouter";
+import { SEO, fleetStructuredData } from "@/components/SEO";
 
 export default function Fleet() {
   const { data: buses, isLoading } = trpc.fleet.list.useQuery();
@@ -38,6 +39,11 @@ export default function Fleet() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Armada Bus - DRWTRANS"
+        description="Lihat armada bus kami dengan spesifikasi lengkap, fasilitas modern, dan dokumen legal yang valid. Pilih bus sesuai kebutuhan perjalanan Anda."
+        structuredData={fleetStructuredData}
+      />
       {/* Navigation */}
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">

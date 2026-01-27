@@ -9,6 +9,7 @@ import { trpc } from "@/lib/trpc";
 import { Bus, Calendar, Clock, MapPin, Users, Phone, Mail, MessageSquare, ArrowLeft, Loader2 } from "lucide-react";
 import { Link } from "wouter";
 import { toast } from "sonner";
+import { SEO, bookingStructuredData } from "@/components/SEO";
 
 export default function Booking() {
   const { data: buses } = trpc.fleet.available.useQuery();
@@ -94,6 +95,11 @@ export default function Booking() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Booking Bus - DRWTRANS"
+        description="Pesan bus sekarang dengan mudah. Isi formulir booking dan konfirmasi langsung via WhatsApp. Proses cepat dan transparan."
+        structuredData={bookingStructuredData}
+      />
       {/* Navigation */}
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">

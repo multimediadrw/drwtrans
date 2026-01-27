@@ -4,6 +4,9 @@ import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
 import { Bus, MapPin, Shield, Star, Sparkles, Phone, Mail, Clock } from "lucide-react";
 import { Link } from "wouter";
+import { MobileMenu } from "@/components/MobileMenu";
+import { SEO, homeStructuredData } from "@/components/SEO";
+import { BusCardSkeleton, RouteCardSkeleton, TestimonialCardSkeleton, PromoCardSkeleton } from "@/components/SkeletonCard";
 
 export default function Home() {
   const { data: buses, isLoading: busesLoading } = trpc.fleet.available.useQuery();
@@ -13,6 +16,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO structuredData={homeStructuredData} />
       {/* Navigation */}
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
@@ -42,6 +46,7 @@ export default function Home() {
               <Button className="bg-primary hover:bg-primary/90">Pesan Sekarang</Button>
             </Link>
           </div>
+          <MobileMenu />
         </div>
       </nav>
 
@@ -171,13 +176,7 @@ export default function Home() {
             {busesLoading ? (
               <>
                 {[1, 2, 3].map((i) => (
-                  <Card key={i} className="animate-pulse">
-                    <div className="aspect-video bg-muted rounded-t-lg" />
-                    <CardHeader>
-                      <div className="h-6 bg-muted rounded w-3/4" />
-                      <div className="h-4 bg-muted rounded w-1/2" />
-                    </CardHeader>
-                  </Card>
+                  <BusCardSkeleton key={i} />
                 ))}
               </>
             ) : (
@@ -237,12 +236,7 @@ export default function Home() {
             {routesLoading ? (
               <>
                 {[1, 2, 3, 4].map((i) => (
-                  <Card key={i} className="animate-pulse">
-                    <CardHeader>
-                      <div className="h-6 bg-muted rounded w-3/4" />
-                      <div className="h-4 bg-muted rounded w-1/2" />
-                    </CardHeader>
-                  </Card>
+                  <RouteCardSkeleton key={i} />
                 ))}
               </>
             ) : (
@@ -361,7 +355,13 @@ export default function Home() {
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
-              {testimonials.slice(0, 3).map((testimonial) => (
+              {testimonialsLoading ? (
+                <>
+                  {[1, 2, 3].map((i) => (
+                    <TestimonialCardSkeleton key={i} />
+                  ))}
+                </>
+              ) : testimonials?.slice(0, 3).map((testimonial) => (
                 <Card key={testimonial.id} className="hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="flex items-center gap-4">
@@ -387,6 +387,66 @@ export default function Home() {
                         Rute: {testimonial.route}
                       </p>
                     )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Promos */}
+      {promosLoading ? (
+        <section className="py-16 md:py-24 bg-primary/5">
+          <div className="container">
+            <div className="grid md:grid-cols-2 gap-6">
+              {[1, 2].map((i) => (
+                <PromoCardSkeleton key={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : promos && promos.length > 0 && (
+        <section className="py-16 md:py-24 bg-primary/5">
+          <div className="container">
+            <div className="flex justify-between items-center mb-12">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Promo Spesial</h2>
+                <p className="text-lg text-muted-foreground">
+                  Dapatkan penawaran terbaik untuk perjalanan Anda
+                </p>
+              </div>
+              <Link href="/promos">
+                <Button variant="outline">Lihat Semua Promo</Button>
+              </Link>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {promos.slice(0, 2).map((promo) => (
+                <Card key={promo.id} className="border-primary/40 bg-card">
+                  <CardHeader>
+                    <Badge className="w-fit bg-primary text-primary-foreground">
+                      {promo.discountType === "percentage" 
+                        ? `Diskon ${promo.discountValue}%` 
+                        : `Hemat Rp ${promo.discountValue.toLocaleString("id-ID")}`}
+                    </Badge>
+                    <CardTitle className="text-2xl">{promo.title}</CardTitle>
+                    <CardDescription>{promo.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Clock className="h-4 w-4" />
+                        Berlaku: {new Date(promo.validFrom).toLocaleDateString("id-ID")} - {new Date(promo.validUntil).toLocaleDateString("id-ID")}
+                      </div>
+                      {promo.termsConditions && (
+                        <p className="text-muted-foreground text-xs">
+                          S&K: {promo.termsConditions}
+                        </p>
+                      )}
+                    </div>
+                    <Link href="/booking">
+                      <Button className="w-full mt-4">Gunakan Promo</Button>
+                    </Link>
                   </CardContent>
                 </Card>
               ))}
