@@ -23,20 +23,20 @@ export default function Home() {
             </div>
           </Link>
           <div className="hidden md:flex items-center gap-6">
-            <Link href="/fleet">
-              <a className="text-sm font-medium hover:text-primary transition-colors">Armada</a>
+            <Link href="/fleet" className="text-sm font-medium hover:text-primary transition-colors">
+              Armada
             </Link>
-            <Link href="/pricing">
-              <a className="text-sm font-medium hover:text-primary transition-colors">Harga</a>
+            <Link href="/pricing" className="text-sm font-medium hover:text-primary transition-colors">
+              Harga
             </Link>
-            <Link href="/booking">
-              <a className="text-sm font-medium hover:text-primary transition-colors">Booking</a>
+            <Link href="/booking" className="text-sm font-medium hover:text-primary transition-colors">
+              Booking
             </Link>
-            <Link href="/about">
-              <a className="text-sm font-medium hover:text-primary transition-colors">Tentang Kami</a>
+            <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
+              Tentang Kami
             </Link>
-            <Link href="/contact">
-              <a className="text-sm font-medium hover:text-primary transition-colors">Kontak</a>
+            <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors">
+              Kontak
             </Link>
             <Link href="/booking">
               <Button className="bg-primary hover:bg-primary/90">Pesan Sekarang</Button>

@@ -46,6 +46,9 @@
 - [x] Test WhatsApp integration
 
 ## Deployment
-- [ ] Create final checkpoint
+- [x] Create final checkpoint
 - [ ] Connect to GitHub repository DRWTRANS
 - [ ] Deploy to Vercel
+
+## Bug Fixes
+- [x] Fix nested anchor tag error in navigation links
