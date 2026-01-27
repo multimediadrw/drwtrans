@@ -1,0 +1,212 @@
+import { drizzle } from "drizzle-orm/mysql2";
+import { buses, routes, testimonials, promos } from "./drizzle/schema.ts";
+
+const db = drizzle(process.env.DATABASE_URL);
+
+async function seed() {
+  console.log("Seeding database...");
+
+  // Insert sample buses
+  await db.insert(buses).values([
+    {
+      name: "Medium Bus Executive",
+      type: "medium",
+      capacity: 25,
+      seatConfig: "2-2 Executive",
+      yearManufactured: 2022,
+      hasAudio: 1,
+      hasTV: 1,
+      hasKaraoke: 1,
+      hasUSBCharger: 1,
+      hasWiFi: 1,
+      hasToilet: 1,
+      hasAC: 1,
+      hasLegrest: 1,
+      hasSeatBelts: 1,
+      hasEmergencyHammer: 1,
+      hasFireExtinguisher: 1,
+      stnkExpiry: new Date("2026-12-31"),
+      kirExpiry: new Date("2026-06-30"),
+      trayekLicense: "TRK-2022-001",
+      description: "Bus medium dengan konfigurasi kursi 2-2 Executive, dilengkapi fasilitas lengkap untuk perjalanan jarak jauh yang nyaman.",
+      pricePerDay: 2500000,
+      isAvailable: 1,
+    },
+    {
+      name: "Medium Bus Economy",
+      type: "medium",
+      capacity: 35,
+      seatConfig: "2-3 Economy",
+      yearManufactured: 2021,
+      hasAudio: 1,
+      hasTV: 1,
+      hasKaraoke: 0,
+      hasUSBCharger: 1,
+      hasWiFi: 1,
+      hasToilet: 0,
+      hasAC: 1,
+      hasLegrest: 0,
+      hasSeatBelts: 1,
+      hasEmergencyHammer: 1,
+      hasFireExtinguisher: 1,
+      stnkExpiry: new Date("2026-10-31"),
+      kirExpiry: new Date("2026-05-31"),
+      trayekLicense: "TRK-2021-002",
+      description: "Bus medium ekonomis dengan kapasitas lebih besar, cocok untuk rombongan besar dengan budget terbatas.",
+      pricePerDay: 1800000,
+      isAvailable: 1,
+    },
+    {
+      name: "Toyota HiAce Commuter",
+      type: "hiace",
+      capacity: 15,
+      seatConfig: "2-2 Executive",
+      yearManufactured: 2023,
+      hasAudio: 1,
+      hasTV: 0,
+      hasKaraoke: 0,
+      hasUSBCharger: 1,
+      hasWiFi: 1,
+      hasToilet: 0,
+      hasAC: 1,
+      hasLegrest: 1,
+      hasSeatBelts: 1,
+      hasEmergencyHammer: 1,
+      hasFireExtinguisher: 1,
+      stnkExpiry: new Date("2027-03-31"),
+      kirExpiry: new Date("2026-09-30"),
+      trayekLicense: "TRK-2023-003",
+      description: "HiAce terbaru dengan interior mewah, sempurna untuk perjalanan bisnis atau keluarga kecil.",
+      pricePerDay: 1500000,
+      isAvailable: 1,
+    },
+  ]);
+
+  // Insert sample routes
+  await db.insert(routes).values([
+    {
+      origin: "Yogyakarta",
+      destination: "Gunung Kidul",
+      distanceKm: 45,
+      estimatedDuration: "1-1.5 jam",
+      baseFare: 800000,
+      fuelCost: 150000,
+      tollCost: 0,
+      parkingCost: 20000,
+      driverTip: 100000,
+      totalFare: 1070000,
+      isPopular: 1,
+    },
+    {
+      origin: "Yogyakarta",
+      destination: "Borobudur",
+      distanceKm: 42,
+      estimatedDuration: "1-1.5 jam",
+      baseFare: 750000,
+      fuelCost: 140000,
+      tollCost: 0,
+      parkingCost: 25000,
+      driverTip: 100000,
+      totalFare: 1015000,
+      isPopular: 1,
+    },
+    {
+      origin: "Yogyakarta",
+      destination: "Parangtritis",
+      distanceKm: 28,
+      estimatedDuration: "45 menit - 1 jam",
+      baseFare: 600000,
+      fuelCost: 100000,
+      tollCost: 0,
+      parkingCost: 15000,
+      driverTip: 75000,
+      totalFare: 790000,
+      isPopular: 1,
+    },
+    {
+      origin: "Yogyakarta",
+      destination: "Solo",
+      distanceKm: 65,
+      estimatedDuration: "1.5-2 jam",
+      baseFare: 950000,
+      fuelCost: 200000,
+      tollCost: 25000,
+      parkingCost: 20000,
+      driverTip: 125000,
+      totalFare: 1320000,
+      isPopular: 1,
+    },
+    {
+      origin: "Yogyakarta",
+      destination: "Semarang",
+      distanceKm: 120,
+      estimatedDuration: "2.5-3 jam",
+      baseFare: 1500000,
+      fuelCost: 350000,
+      tollCost: 50000,
+      parkingCost: 30000,
+      driverTip: 150000,
+      totalFare: 2080000,
+      isPopular: 1,
+    },
+  ]);
+
+  // Insert sample testimonials
+  await db.insert(testimonials).values([
+    {
+      customerName: "Budi Santoso",
+      rating: 5,
+      review: "Pelayanan sangat memuaskan! Bus bersih, driver ramah dan profesional. Perjalanan ke Gunung Kidul jadi sangat nyaman.",
+      tripDate: new Date("2026-01-15"),
+      route: "Yogyakarta - Gunung Kidul",
+      isVerified: 1,
+      isFeatured: 1,
+    },
+    {
+      customerName: "Siti Nurhaliza",
+      rating: 5,
+      review: "Bus nya bagus, AC dingin, ada karaoke juga. Anak-anak senang sekali. Terima kasih DRWTRANS!",
+      tripDate: new Date("2026-01-10"),
+      route: "Yogyakarta - Borobudur",
+      isVerified: 1,
+      isFeatured: 1,
+    },
+    {
+      customerName: "Ahmad Fauzi",
+      rating: 4,
+      review: "Harga transparan, tidak ada biaya tersembunyi. Driver tepat waktu dan menguasai rute. Recommended!",
+      tripDate: new Date("2026-01-05"),
+      route: "Yogyakarta - Solo",
+      isVerified: 1,
+      isFeatured: 1,
+    },
+  ]);
+
+  // Insert sample promos
+  await db.insert(promos).values([
+    {
+      title: "Promo Awal Tahun - Diskon 20%",
+      description: "Dapatkan diskon 20% untuk semua pemesanan bus selama bulan Januari 2026. Berlaku untuk semua tipe bus.",
+      discountType: "percentage",
+      discountValue: 20,
+      validFrom: new Date("2026-01-01"),
+      validUntil: new Date("2026-01-31"),
+      termsConditions: "Minimal booking 1 hari, maksimal diskon Rp 500.000",
+      isActive: 1,
+    },
+    {
+      title: "Paket Wisata Gunung Kidul",
+      description: "Paket spesial wisata Gunung Kidul dengan harga mulai Rp 850.000 sudah termasuk BBM, tol, dan parkir.",
+      discountType: "fixed",
+      discountValue: 220000,
+      validFrom: new Date("2026-01-15"),
+      validUntil: new Date("2026-02-28"),
+      termsConditions: "Khusus rute Yogyakarta - Gunung Kidul, minimal 20 penumpang",
+      isActive: 1,
+    },
+  ]);
+
+  console.log("Database seeded successfully!");
+}
+
+seed().catch(console.error);
